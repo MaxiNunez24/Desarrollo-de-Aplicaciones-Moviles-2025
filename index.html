@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Desarrollo de Aplicaciones - Expo 2025 </title>
+  <meta name="description" content="CFP 401 - Muestra de proyectos y apps. Convertite en verificador para probar las apps." />
+  <style>
+    /* RESET + TIPOGRAFÍA */
+    :root{
+      --bg: #0f1724;
+      --card: #2f3740;
+      --accent1: linear-gradient(135deg,#ff4da6 0%, #7a6dff 100%);
+      --accent2: linear-gradient(135deg,#2bb7ff 0%, #6b5cff 100%);
+      --muted: #bfc7d0;
+      --glass: rgba(255,255,255,0.03);
+      --glass-2: rgba(255,255,255,0.04);
+      --pink: #ff3d87;
+      --shadow: 0 8px 18px rgba(3,8,23,0.6);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      background: linear-gradient(180deg,#0b1a2b 0%, #11263a 60%);
+      color:#e9eef6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+    }
+
+    /* CONTAINER */
+    .wrap{max-width:1200px;margin:0 auto;padding:24px}
+    header{
+      display:flex;align-items:center;justify-content:space-between;
+      gap:12px;padding:12px 0;
+    }
+    .brand{
+      display:flex;gap:12px;align-items:center;
+    }
+    .logo{
+      min-width:90px;height:fit-content;border-radius:14px;overflow:hidden;
+      border:3px solid rgba(255,255,255,0.06);box-shadow:var(--shadow);
+      background:var(--accent1);
+      display:flex;align-items:center;justify-content:center;font-weight:700;
+    }
+    .brand h1{font-size:18px;margin:0;color:#fff}
+    nav{display:flex;gap:14px;align-items:center}
+    nav a{color:rgba(255,255,255,0.85);text-decoration:none;font-weight:600;font-size:14px;padding:8px 10px;border-radius:8px}
+    nav a:hover{background:rgba(255,255,255,0.03)}
+
+    /* HERO */
+    .hero{
+      margin-top:18px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:14px;padding:36px;box-shadow:var(--shadow);position:relative;overflow:hidden;
+    }
+    .hero-grid{display:grid;grid-template-columns:1fr 500px;gap:24px;align-items:center}
+    .hero h2{margin:0;font-size:34px;color:var(--pink)}
+    .hero p{color:var(--muted);margin-top:12px;font-size:16px}
+
+    .hero-cta{display:flex;gap:12px;margin-top:20px}
+    .btn{
+      background:var(--accent2);padding:12px 18px;border-radius:12px;font-weight:700;color:#041226;border:none;cursor:pointer;
+      box-shadow:0 8px 14px rgba(17,38,58,0.45)
+    }
+    .btn.ghost{background:transparent;color:var(--muted);border:2px solid rgba(255,255,255,0.03)}
+
+    /* APPS GRID */
+    .section{margin-top:36px}
+    .section h3{font-size:28px;margin:0 0 8px 0;color:#ff5fa4}
+    .section p.lead{color:var(--muted);margin:0 0 18px 0}
+
+    .apps{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;
+    }
+    .app-card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.06));
+      border-radius:18px;padding:18px;text-align:center;border:1px solid rgba(255,255,255,0.03);
+      transition:transform .22s ease, box-shadow .22s ease;cursor:pointer;
+    }
+    .app-card:hover{transform:translateY(-6px);box-shadow:0 18px 30px rgba(5,10,20,0.6)}
+    .app-icon{width:120px;height:120px;margin:0 auto;border-radius:18px;padding:16px;background:linear-gradient(135deg,rgba(255,255,255,0.02),rgba(0,0,0,0.06));display:flex;align-items:center;justify-content:center}
+    .app-title{margin-top:12px;font-weight:700;color:#ffd2f0}
+    .app-sub{color:var(--muted);font-size:13px;margin-top:6px}
+
+    /* QR SECTION */
+    .qr-wrap{display:flex;gap:24px;align-items:center;justify-content: center;flex-wrap:wrap}
+    .qr-box{background:var(--glass);padding:18px;border-radius:14px;border:1px solid rgba(255,255,255,0.03)}
+    .qr-box img{width:220px;height:220px;display:block}
+
+    .steps{max-width:520px}
+    .step{display:flex;gap:12px;align-items:flex-start;margin-bottom:12px}
+    .step .num{width:36px;height:36px;border-radius:10px;background:var(--accent1);display:flex;align-items:center;justify-content:center;font-weight:800;color:#031026}
+    .small-muted{color:var(--muted);font-size:13px}
+
+    /* TIMELINE */
+    .timeline{display:flex;gap:18px;flex-wrap:wrap;margin-top:18px}
+    .step-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.06));padding:16px;border-radius:12px;min-width:180px;flex:1;border:1px solid rgba(255,255,255,0.03)}
+    .step-card h4{margin:0 0 8px 0;color:#ffd2f0}
+
+    /* FOOTER */
+    footer{margin-top:36px;padding:22px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.03));display:flex;align-items:center;justify-content:space-between}
+    .socials{display:flex;gap:12px;align-items:center}
+    .socials a{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,0.02);text-decoration:none;color:#fff}
+
+    /* MODAL */
+    .modal{
+      position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:linear-gradient(rgba(2,6,23,0.6),rgba(2,6,23,0.8));
+      z-index:60;padding:24px;
+    }
+    .modal.show{display:flex}
+    .modal-card{background:linear-gradient(180deg,#071124 0%, #0b2032 100%);border-radius:16px;padding:20px;max-width:820px;width:100%;box-shadow:var(--shadow);border:1px solid rgba(255,255,255,0.04)}
+    .modal-close{background:transparent;border:0;color:var(--muted);font-weight:800;cursor:pointer}
+
+    /* DARK MODE LIGHT MODE (simple) */
+    .light body{background:linear-gradient(180deg,#f6f7fb 0%, #e8eefb 100%);color:#072033}
+    .light .hero{background:linear-gradient(180deg,rgba(2,6,23,0.03),rgba(2,6,23,0.02))}
+    .light .app-card{background:#fff;color:#072033;border:1px solid rgba(2,6,23,0.04)}
+    .mode-toggle{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);cursor:pointer}
+
+    /* RESPONSIVE */
+    @media (max-width:880px){
+      .hero-grid{grid-template-columns:1fr}
+      .hero-cta{flex-direction:column;align-items:flex-start}
+      .hero h2{font-size:26px}
+      .qr-box img{width:180px;height:180px}
+    }
+
+    /* Footer */
+.footer {
+    display: flex;
+    align-items: center;
+    background-color: var(--blue2);
+    color: var(--light);
+    justify-content: space-evenly;
+    margin: 0;
+    padding: 0;
+}
+
+.footer-copy {
+    padding: 20px;
+}
+
+.footer-links-list {
+    display: flex;
+    margin: 0;
+    padding: 20px;
+    gap: 25px;
+}
+
+.footer-links {
+    list-style-type: none;
+    height: 24px;
+    width: 24px;
+    box-shadow: 0 2px 10px 0 #00000080;
+    transition: .4s ease;
+}
+
+.footer-links img {
+    width: 24px;
+    height: 24px;
+}
+
+.footer-links svg {
+    fill: #fff;
+}
+
+.footer-links:hover {
+    transform: scale(1.2) translateY(-5px);
+    box-shadow: 0 10px 10px 0 #00000080;
+}
+
+.gh {
+    background-color: var(--light);
+    border-radius: 50%;
+}
+
+.wp {
+    background-color: #25d366;
+    border-radius: 100%;
+}
+
+.fb {
+    background-color: #1877F2;
+    border-radius: 20%;
+}
+
+.ig {
+    background-color: #e1306c;
+    border-radius: 30%;
+}
+
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden="true">
+          <img 
+            src="assets/logo.ico" 
+            alt="Logo de Laura Vicuña"
+            style="
+                width: 100%;
+                max-width: 120px; /* ajustá el tamaño máximo */
+                height: auto;
+                object-fit: contain;"
+          >
+        </div>
+        <div>
+          <h1>CFP 401 — Laura Vicuña</h1>
+          <div class="small-muted">Expo de proyectos — Desarrollo de Aplicaciones</div>
+        </div>
+      </div>
+
+      <nav aria-label="Navegación principal">
+        <a href="#inicio">Inicio</a>
+        <a href="#verificar">Probá nuestras apps</a>
+        <a href="#proceso">Nuestro proceso</a>
+      </nav>
+    </header>
+
+    <!-- HERO / INICIO -->
+    <section id="inicio" class="hero" role="region" aria-labelledby="heroTitle">
+      <div class="hero-grid">
+        <div>
+          <h2 id="heroTitle">Formamos desarrolladores y desarrolladoras desde cero</h2>
+          <p>
+            En el Curso de Desarrollo de Aplicaciones Móviles del CFP 401 trabajamos con Pensamiento computacional, con Kotlin como lenguaje de programación, y con Jetpack Compose como framework (marco de trabajo) de creación de UI (Interfaz de Usuario) nativas en Android.
+            Encontrarás proyectos prácticos, apps listas para probar y la historia del proceso creativo de los estudiantes.
+          </p>
+
+          <div class="hero-cta">
+            <button class="btn" onclick="document.getElementById('apps').scrollIntoView({behavior:'smooth'})">Probá nuestras apps</button>
+            <a class="btn ghost" href="#verificar">Cómo ser verificador</a>
+          </div>
+        </div>
+
+        <div aria-hidden="true">
+          <!-- Video placeholder (sustituir por video real si lo tenés) -->
+          <div style="width:100%;height:auto;border-radius:12px;background:linear-gradient(135deg,#1b3b57,#67427a);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;box-shadow:var(--shadow)">
+            <video 
+            src="./assets/Desarrollo de Apps Moviles 2025/Desarrollo de Apps Moviles 2025.mp4"
+            autoplay
+            muted
+            loop
+            playsinline
+            style="
+                width: 100%;
+                height: auto;
+                border-radius: 20px;
+                object-fit: cover;
+            ">
+          </video>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- QR / VERIFICADORES -->
+    <section id="verificar" class="section" aria-labelledby="verTitle">
+      <h3 id="verTitle">Probá las apps — Convertite en verificador</h3>
+      <p class="lead">Estamos en fase de prueba cerrada: completá el formulario para que agreguemos tu correo como verificador y te enviemos el link de instalación.</p>
+
+      <div class="qr-wrap">
+        <div class="qr-box" role="region" aria-label="QR para formulario">
+          <!-- REEMPLAZAR: sustituí FORM_URL_ENCODED por la URL de tu Google Form codificada -->
+          <img alt="QR para descargar apps" src="assets/qr_form_google.png" 
+            style="
+              width: 100%;
+              height: auto;
+            "
+          >
+          <div style="margin-top:10px;text-align:center" class="small-muted">Escaneá con la cámara y completá el formulario</div>
+        </div>
+
+        <div class="steps">
+          <div class="step">
+            <div class="num">1</div>
+            <div>
+              <strong>Completá el formulario</strong>
+              <div class="small-muted">Escribí tu email (el que usás en Google Play) y un nombre para reconocer tu cuenta.</div>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="num">2</div>
+            <div>
+              <strong>Te agregamos como verificador</strong>
+              <div class="small-muted">Desde la Play Console añadimos tu correo entre los testers cerrados.</div>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="num">3</div>
+            <div>
+              <strong>Recibís el link de instalación</strong>
+              <div class="small-muted">Te llegará un correo o whatsapp (si así lo preferís) con el link para descargar la app.</div>
+            </div>
+          </div>
+
+          <div style="margin-top:12px">
+            <button class="btn" onclick="window.open('FORM_LINK_OR_DIRECT','_blank')">Abrir formulario</button>
+            <button class="btn ghost" onclick="copyFormLink()">Copiar link</button>
+          </div>
+        </div>
+        <p class="small-muted" style="margin-top:10px">
+          Si tenés problemas escaneando, tocá "Abrir formulario" o pegá el link copiado en el navegador.
+        </p>
+      </div>
+    </section>
+
+    <!-- NUESTRO PROCESO (timeline) -->
+    <section id="proceso" class="section" aria-labelledby="procTitle">
+      <h3 id="procTitle">Nuestro proceso</h3>
+      <p class="lead">Así trabajamos con los estudiantes: una secuencia práctica y repetible.</p>
+
+      <div class="timeline" role="list">
+        <div class="step-card" role="listitem">
+          <h4>1. Pensamiento</h4>
+          <div class="small-muted">Problema → Diseño de solución (diagrama y pruebas de papel).</div>
+        </div>
+        <div class="step-card" role="listitem">
+          <h4>2. Diseño</h4>
+          <div class="small-muted">UX sencillo y wireframes en Excalidraw o papel.</div>
+        </div>
+        <div class="step-card" role="listitem">
+          <h4>3. Desarrollo</h4>
+          <div class="small-muted">Kotlin, Jetpack Compose.</div>
+        </div>
+        <div class="step-card" role="listitem">
+          <h4>4. Testeo</h4>
+          <div class="small-muted">Pruebas con usuarios y revisión de bugs.</div>
+        </div>
+        <div class="step-card" role="listitem">
+          <h4>5. Expo</h4>
+          <div class="small-muted">Presentación en el CFP y feedback real del público.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+<div class="footer-links-container">
+    <ul class="footer-links-list">
+        <li class="footer-links wp">
+            <a target="_blank" href="https://wa.me/2213180476">
+                <svg width="24" height="24" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M 12.011719 2 C 6.5057187 2 2.0234844 6.478375 2.0214844 11.984375 C 2.0204844 13.744375 2.4814687 15.462563 3.3554688 16.976562 L 2 22 L 7.2324219 20.763672 C 8.6914219 21.559672 10.333859 21.977516 12.005859 21.978516 L 12.009766 21.978516 C 17.514766 21.978516 21.995047 17.499141 21.998047 11.994141 C 22.000047 9.3251406 20.962172 6.8157344 19.076172 4.9277344 C 17.190172 3.0407344 14.683719 2.001 12.011719 2 z M 12.009766 4 C 14.145766 4.001 16.153109 4.8337969 17.662109 6.3417969 C 19.171109 7.8517969 20.000047 9.8581875 19.998047 11.992188 C 19.996047 16.396187 16.413812 19.978516 12.007812 19.978516 C 10.674812 19.977516 9.3544062 19.642812 8.1914062 19.007812 L 7.5175781 18.640625 L 6.7734375 18.816406 L 4.8046875 19.28125 L 5.2851562 17.496094 L 5.5019531 16.695312 L 5.0878906 15.976562 C 4.3898906 14.768562 4.0204844 13.387375 4.0214844 11.984375 C 4.0234844 7.582375 7.6067656 4 12.009766 4 z M 8.4765625 7.375 C 8.3095625 7.375 8.0395469 7.4375 7.8105469 7.6875 C 7.5815469 7.9365 6.9355469 8.5395781 6.9355469 9.7675781 C 6.9355469 10.995578 7.8300781 12.182609 7.9550781 12.349609 C 8.0790781 12.515609 9.68175 15.115234 12.21875 16.115234 C 14.32675 16.946234 14.754891 16.782234 15.212891 16.740234 C 15.670891 16.699234 16.690438 16.137687 16.898438 15.554688 C 17.106437 14.971687 17.106922 14.470187 17.044922 14.367188 C 16.982922 14.263188 16.816406 14.201172 16.566406 14.076172 C 16.317406 13.951172 15.090328 13.348625 14.861328 13.265625 C 14.632328 13.182625 14.464828 13.140625 14.298828 13.390625 C 14.132828 13.640625 13.655766 14.201187 13.509766 14.367188 C 13.363766 14.534188 13.21875 14.556641 12.96875 14.431641 C 12.71875 14.305641 11.914938 14.041406 10.960938 13.191406 C 10.218937 12.530406 9.7182656 11.714844 9.5722656 11.464844 C 9.4272656 11.215844 9.5585938 11.079078 9.6835938 10.955078 C 9.7955938 10.843078 9.9316406 10.663578 10.056641 10.517578 C 10.180641 10.371578 10.223641 10.267562 10.306641 10.101562 C 10.389641 9.9355625 10.347156 9.7890625 10.285156 9.6640625 C 10.223156 9.5390625 9.737625 8.3065 9.515625 7.8125 C 9.328625 7.3975 9.131125 7.3878594 8.953125 7.3808594 C 8.808125 7.3748594 8.6425625 7.375 8.4765625 7.375 z">
+                    </path>
+                </svg>
+            </a>
+        </li>
+        <li class="footer-links fb">
+            <a target="_blank" href="https://www.facebook.com/cfplaura.vicuna/?locale=es_LA">
+                <svg width="24" height="24" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true" focusable="false">
+                    <path
+                        d="M12 2C6.5 2 2 6.5 2 12c0 5 3.7 9.1 8.4 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.3v7C18.3 21.1 22 17 22 12c0-5.5-4.5-10-10-10z">
+                    </path>
+                </svg>
+            </a>
+        </li>
+
+        <li class="footer-links ig">
+            <a target="_blank" href="https://www.instagram.com/cfp401_eda/?hl=es">
+                <svg width="24" height="24" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true" focusable="false">
+                    <path
+                        d="M12,4.622c2.403,0,2.688,0.009,3.637,0.052c0.877,0.04,1.354,0.187,1.671,0.31c0.42,0.163,0.72,0.358,1.035,0.673 c0.315,0.315,0.51,0.615,0.673,1.035c0.123,0.317,0.27,0.794,0.31,1.671c0.043,0.949,0.052,1.234,0.052,3.637 s-0.009,2.688-0.052,3.637c-0.04,0.877-0.187,1.354-0.31,1.671c-0.163,0.42-0.358,0.72-0.673,1.035 c-0.315,0.315-0.615,0.51-1.035,0.673c-0.317,0.123-0.794,0.27-1.671,0.31c-0.949,0.043-1.233,0.052-3.637,0.052 s-2.688-0.009-3.637-0.052c-0.877-0.04-1.354-0.187-1.671-0.31c-0.42-0.163-0.72-0.358-1.035-0.673 c-0.315-0.315-0.51-0.615-0.673-1.035c-0.123-0.317-0.27-0.794-0.31-1.671C4.631,14.688,4.622,14.403,4.622,12 s0.009-2.688,0.052-3.637c0.04-0.877,0.187-1.354,0.31-1.671c0.163-0.42,0.358-0.72,0.673-1.035 c0.315-0.315,0.615-0.51,1.035-0.673c0.317-0.123,0.794-0.27,1.671-0.31C9.312,4.631,9.597,4.622,12,4.622 M12,3 C9.556,3,9.249,3.01,8.289,3.054C7.331,3.098,6.677,3.25,6.105,3.472C5.513,3.702,5.011,4.01,4.511,4.511 c-0.5,0.5-0.808,1.002-1.038,1.594C3.25,6.677,3.098,7.331,3.054,8.289C3.01,9.249,3,9.556,3,12c0,2.444,0.01,2.751,0.054,3.711 c0.044,0.958,0.196,1.612,0.418,2.185c0.23,0.592,0.538,1.094,1.038,1.594c0.5,0.5,1.002,0.808,1.594,1.038 c0.572,0.222,1.227,0.375,2.185,0.418C9.249,20.99,9.556,21,12,21s2.751-0.01,3.711-0.054c0.958-0.044,1.612-0.196,2.185-0.418 c0.592-0.23,1.094-0.538,1.594-1.038c0.5-0.5,0.808-1.002,1.038-1.594c0.222-0.572,0.375-1.227,0.418-2.185 C20.99,14.751,21,14.444,21,12s-0.01-2.751-0.054-3.711c-0.044-0.958-0.196-1.612-0.418-2.185c-0.23-0.592-0.538-1.094-1.038-1.594 c-0.5-0.5-1.002-0.808-1.594-1.038c-0.572-0.222-1.227-0.375-2.185-0.418C14.751,3.01,14.444,3,12,3L12,3z M12,7.378 c-2.552,0-4.622,2.069-4.622,4.622S9.448,16.622,12,16.622s4.622-2.069,4.622-4.622S14.552,7.378,12,7.378z M12,15 c-1.657,0-3-1.343-3-3s1.343-3,3-3s3,1.343,3,3S13.657,15,12,15z M16.804,6.116c-0.596,0-1.08,0.484-1.08,1.08 s0.484,1.08,1.08,1.08c0.596,0,1.08-0.484,1.08-1.08S17.401,6.116,16.804,6.116z">
+                    </path>
+                </svg>
+            </a>
+        </li>
+
+        <li class="footer-links gh">
+            <a target="_blank" href="https://github.com/MaxiNunez24/CFP-401">
+                <img src="./assets/github.png" alt="Logo de Github">
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="footer-copy"> &copy; CFP 401 Laura Vicuña - 2025</div>
+    </footer>
+  </div>
+
+  <!-- MODAL (DEMO) -->
+  <div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card" role="document">
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <h3 id="modalTitle">Demo</h3>
+        <button class="modal-close" aria-label="Cerrar" onclick="closeModal()">✕</button>
+      </div>
+
+      <div id="modalBody" style="margin-top:12px">
+        <!-- Contenido dinámico -->
+      </div>
+
+      <div style="margin-top:16px;display:flex;gap:12px;justify-content:flex-end">
+        <button class="btn" onclick="requestInstall()">Solicitar instalación</button>
+        <button class="btn ghost" onclick="closeModal()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ---------- REEMPLAZAR ESTOS VALORES ----------
+    const FORM_LINK = "https://forms.gle/5pgnEX4vFoeeMs3PA"; // URL pública del formulario
+    const FORM_LINK_ENCODED = encodeURIComponent(FORM_LINK);
+    const GITHUB_LINK = "https://github.com/MaxiNunez24/curso-android/blob/main/conceptos-kotlin/README.md"; // repo del curso
+    // ---------------------------------------------
+
+    // Modal logic
+    const modal = document.getElementById('modal');
+    const modalBody = document.getElementById('modalBody');
+    const modalTitle = document.getElementById('modalTitle');
+
+    function closeModal(){
+      modal.classList.remove('show');
+      modal.setAttribute('aria-hidden','true');
+    }
+
+    // Solicitar instalacion -> abre el formulario
+    function requestInstall(){
+      window.open(FORM_LINK, '_blank');
+    }
+
+    // copy link helper
+    function copyFormLink(){
+      navigator.clipboard && navigator.clipboard.writeText(FORM_LINK).then(()=>{
+        alert('Link del formulario copiado al portapapeles.'); 
+      }).catch(()=> alert('No se pudo copiar. Abrí el formulario y copialo manualmente.'));
+    }
+
+    // mode toggle
+    const root = document.documentElement;
+    const modeToggle = document.getElementById('modeToggle');
+    let light = false;
+    modeToggle.addEventListener('click', ()=>{
+      light = !light;
+      if(light){
+        document.documentElement.classList.add('light');
+        modeToggle.textContent = 'Modo oscuro';
+      } else {
+        document.documentElement.classList.remove('light');
+        modeToggle.textContent = 'Modo claro';
+      }
+    });
+
+    // Smooth close modal on backdrop click
+    modal.addEventListener('click', (e)=>{
+      if(e.target===modal) closeModal();
+    });
+
+    // Accessibility: close modal with Escape
+    document.addEventListener('keydown', (e)=>{
+      if(e.key==='Escape' && modal.classList.contains('show')) closeModal();
+    });
+
+    // Replace placeholders in buttons
+    document.querySelectorAll('button[onclick]').forEach(btn=>{
+      // nothing: placeholder for potential dynamic binding
+    });
+
+    // fill global links used by buttons
+    function initPlaceholders(){
+      // "Abrir formulario" button
+      document.querySelectorAll('button').forEach(b=>{
+        if(b.textContent.includes('Abrir formulario')){
+          b.addEventListener('click', ()=> window.open(FORM_LINK, '_blank'));
+        }
+      });
+      // update other direct links used earlier
+      const copyButtons = Array.from(document.querySelectorAll('.btn')).filter(n=>n.textContent.includes('Copiar link'));
+      copyButtons.forEach(b=>b.addEventListener('click', copyFormLink));
+      const githubLink = document.querySelector("a[href='PLACEHOLDER_GITHUB']");
+      if(githubLink) githubLink.href = GITHUB_LINK;
+      const pdfLink = document.querySelector("a[href='PLACEHOLDER_PROGRAM_PDF']");
+      if(pdfLink) pdfLink.href = PROGRAM_PDF;
+      // button that used FORM_LINK_OR_DIRECT (in solicitar instalação)
+      document.querySelectorAll('button').forEach(b=>{
+        if(b.getAttribute('onclick') && b.getAttribute('onclick').includes('FORM_LINK_OR_DIRECT')){
+          b.addEventListener('click', ()=> window.open(FORM_LINK,'_blank'));
+        }
+      });
+    }
+    initPlaceholders();
+
+  </script>
+</body>
+</html>
