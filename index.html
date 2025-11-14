@@ -105,21 +105,6 @@
     .socials{display:flex;gap:12px;align-items:center}
     .socials a{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,0.02);text-decoration:none;color:#fff}
 
-    /* MODAL */
-    .modal{
-      position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:linear-gradient(rgba(2,6,23,0.6),rgba(2,6,23,0.8));
-      z-index:60;padding:24px;
-    }
-    .modal.show{display:flex}
-    .modal-card{background:linear-gradient(180deg,#071124 0%, #0b2032 100%);border-radius:16px;padding:20px;max-width:820px;width:100%;box-shadow:var(--shadow);border:1px solid rgba(255,255,255,0.04)}
-    .modal-close{background:transparent;border:0;color:var(--muted);font-weight:800;cursor:pointer}
-
-    /* DARK MODE LIGHT MODE (simple) */
-    .light body{background:linear-gradient(180deg,#f6f7fb 0%, #e8eefb 100%);color:#072033}
-    .light .hero{background:linear-gradient(180deg,rgba(2,6,23,0.03),rgba(2,6,23,0.02))}
-    .light .app-card{background:#fff;color:#072033;border:1px solid rgba(2,6,23,0.04)}
-    .mode-toggle{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);cursor:pointer}
-
     /* RESPONSIVE */
     @media (max-width:880px){
       .hero-grid{grid-template-columns:1fr}
@@ -132,8 +117,7 @@
 .footer {
     display: flex;
     align-items: center;
-    background-color: var(--blue2);
-    color: var(--light);
+    background-color: var(--accent1);
     justify-content: space-evenly;
     margin: 0;
     padding: 0;
@@ -173,7 +157,7 @@
 }
 
 .gh {
-    background-color: var(--light);
+    background-color: #ffff;
     border-radius: 50%;
 }
 
@@ -302,7 +286,7 @@
           </div>
 
           <div style="margin-top:12px">
-            <button class="btn" onclick="window.open('FORM_LINK_OR_DIRECT','_blank')">Abrir formulario</button>
+            <button class="btn" onclick="window.open('https://forms.gle/FvBkdbMpvwwYkZFZ9','_blank')">Abrir formulario</button>
             <button class="btn ghost" onclick="copyFormLink()">Copiar link</button>
           </div>
         </div>
@@ -387,83 +371,16 @@
     </footer>
   </div>
 
-  <!-- MODAL (DEMO) -->
-  <div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
-    <div class="modal-card" role="document">
-      <div style="display:flex;align-items:center;justify-content:space-between">
-        <h3 id="modalTitle">Demo</h3>
-        <button class="modal-close" aria-label="Cerrar" onclick="closeModal()">✕</button>
-      </div>
-
-      <div id="modalBody" style="margin-top:12px">
-        <!-- Contenido dinámico -->
-      </div>
-
-      <div style="margin-top:16px;display:flex;gap:12px;justify-content:flex-end">
-        <button class="btn" onclick="requestInstall()">Solicitar instalación</button>
-        <button class="btn ghost" onclick="closeModal()">Cerrar</button>
-      </div>
-    </div>
-  </div>
-
   <script>
-    // ---------- REEMPLAZAR ESTOS VALORES ----------
-    const FORM_LINK = "https://forms.gle/5pgnEX4vFoeeMs3PA"; // URL pública del formulario
-    const FORM_LINK_ENCODED = encodeURIComponent(FORM_LINK);
+    
     const GITHUB_LINK = "https://github.com/MaxiNunez24/curso-android/blob/main/conceptos-kotlin/README.md"; // repo del curso
-    // ---------------------------------------------
-
-    // Modal logic
-    const modal = document.getElementById('modal');
-    const modalBody = document.getElementById('modalBody');
-    const modalTitle = document.getElementById('modalTitle');
-
-    function closeModal(){
-      modal.classList.remove('show');
-      modal.setAttribute('aria-hidden','true');
-    }
-
-    // Solicitar instalacion -> abre el formulario
-    function requestInstall(){
-      window.open(FORM_LINK, '_blank');
-    }
 
     // copy link helper
     function copyFormLink(){
-      navigator.clipboard && navigator.clipboard.writeText(FORM_LINK).then(()=>{
+      navigator.clipboard && navigator.clipboard.writeText("https://forms.gle/FvBkdbMpvwwYkZFZ9").then(()=>{
         alert('Link del formulario copiado al portapapeles.'); 
       }).catch(()=> alert('No se pudo copiar. Abrí el formulario y copialo manualmente.'));
     }
-
-    // mode toggle
-    const root = document.documentElement;
-    const modeToggle = document.getElementById('modeToggle');
-    let light = false;
-    modeToggle.addEventListener('click', ()=>{
-      light = !light;
-      if(light){
-        document.documentElement.classList.add('light');
-        modeToggle.textContent = 'Modo oscuro';
-      } else {
-        document.documentElement.classList.remove('light');
-        modeToggle.textContent = 'Modo claro';
-      }
-    });
-
-    // Smooth close modal on backdrop click
-    modal.addEventListener('click', (e)=>{
-      if(e.target===modal) closeModal();
-    });
-
-    // Accessibility: close modal with Escape
-    document.addEventListener('keydown', (e)=>{
-      if(e.key==='Escape' && modal.classList.contains('show')) closeModal();
-    });
-
-    // Replace placeholders in buttons
-    document.querySelectorAll('button[onclick]').forEach(btn=>{
-      // nothing: placeholder for potential dynamic binding
-    });
 
     // fill global links used by buttons
     function initPlaceholders(){
