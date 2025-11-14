@@ -177,6 +177,58 @@
     border-radius: 30%;
 }
 
+/* Title  */
+.title {
+  color: #f0f0f0;
+  padding: 1rem 0;
+  font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+  max-width: 700px;
+}
+
+.title h1,
+.title h2,
+.title h3,
+.title h4 {
+  margin: 0;
+  font-weight: 600;
+}
+
+/* Estilos base: versión MOBILE */
+.title .linea1,
+.title .linea2,
+.title .linea3,
+.title .linea4 {
+  font-size: 1.3rem;
+  margin-bottom: 0.3rem;
+}
+
+/* Desktop: reorganizar y poner en una sola línea */
+@media (min-width: 768px) {
+
+  /* Primera línea: CFP 401 – Laura Vicuña */
+  .title .grupo1 {
+    display: flex;
+    gap: .4rem;
+    font-size: 2rem;
+    font-weight: 700;
+  }
+
+  /* Segunda línea: Desarrollo – Expo */
+  .title .grupo2 {
+    display: flex;
+    gap: .4rem;
+    font-size: 1.4rem;
+    opacity: 0.9;
+  }
+
+  /* Ocultamos las líneas separadas del mobile */
+  .title .linea1,
+  .title .linea2,
+  .title .linea3,
+  .title .linea4 {
+    display: none;
+  }
+}
   </style>
 </head>
 <body>
@@ -194,10 +246,6 @@
                 object-fit: contain;"
           >
         </div>
-        <div>
-          <h1>CFP 401 — Laura Vicuña</h1>
-          <div class="small-muted">Expo de proyectos — Desarrollo de Aplicaciones</div>
-        </div>
       </div>
 
       <nav aria-label="Navegación principal">
@@ -207,6 +255,23 @@
       </nav>
     </header>
 
+<section class="title">
+  <!-- Versión DESKTOP (solo visible en pantallas grandes) -->
+  <div class="grupo1">
+    <span>CFP 401</span>
+    <span>–</span>
+    <span>Laura Vicuña</span>
+  </div>
+
+  <div class="grupo2">
+    <span>Desarrollo de Aplicaciones Móviles</span>
+    <span>–</span>
+    <span>Expo 2025</span>
+  </div>
+
+</section>
+
+    
     <!-- HERO / INICIO -->
     <section id="inicio" class="hero" role="region" aria-labelledby="heroTitle">
       <div class="hero-grid">
